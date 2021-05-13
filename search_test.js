@@ -6,7 +6,7 @@ Before(({ I }) => {
 });
 
 Scenario('Empty search', ({ I, searchPage }) => {
-    searchPage.searchButton;
+    searchPage.clickSearchButton;
     I.see('Our top selection');
     I.see('Our current deals');
     I.see('Need some advice');
@@ -19,29 +19,21 @@ Scenario('Empty search', ({ I, searchPage }) => {
 
 Scenario('Non existing search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'nonexisting')
-    searchPage.searchButton;
+    searchPage.clickSearchButton;
     I.waitForText('Nonexisting', 20);
     I.see('no products found');
 });
 
 Scenario('Brand search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'ford')
-    searchPage.searchButton;
-    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "ford")]');
-    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "ford")]', 60)
+    searchPage.clickSearchButton;
+    searchPage.lookFor('ford')
+    searchPage.howManyResults('ford', 60)
 });
 
 Scenario('Product search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'fork')
-    searchPage.searchButton;
-    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "fork")]')
-    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "fork")]', 58)
-});
-
-Scenario('Product & Brand search', ({ I, searchPage }) => {
-    I.fillField('//input[@id="searchbar"]', 'trowel marshalltown')
-    searchPage.searchButton;
-    //At least one element has Product or Brand into description
-    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "trowel") or contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "marshalltown")]')
-    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "trowel") or contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "marshalltown")]', 60)
+    searchPage.clickSearchButton;
+    searchPage.lookFor('fork')
+    searchPage.howManyResults('ford', 58)
 });
