@@ -1,0 +1,11 @@
+const { I } = inject();
+
+module.exports = {
+
+  // insert your locators and methods here
+  searchButton: {xpath: '//button[@data-testid="searchButtonCta"]'},
+
+  lookFor(input) {
+    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), input)]');
+  }
+}
