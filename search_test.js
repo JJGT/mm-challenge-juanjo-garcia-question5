@@ -37,3 +37,15 @@ Scenario('Product search', ({ I, searchPage }) => {
     searchPage.lookFor('fork')
     searchPage.howManyResults('fork', 58)
 });
+
+Scenario('Results pagination', ({ I, searchPage }) => {
+    I.fillField('//input[@id="searchbar"]', 'trowel')
+    I.click(searchPage.searchButton);
+    searchPage.lookFor('trowel')
+    I.scrollPageToBottom();
+    I.see('60 products out of 347');
+    I.click(searchPage.nextPage);
+    I.see('120 products out of 347');
+    searchPage.goToPage('6');
+    I.see('347 products out of 347');
+});
