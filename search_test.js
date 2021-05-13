@@ -5,8 +5,8 @@ Before(({ I }) => {
   I.click('Allow and close')
 });
 
-Scenario('Empty search', ({ I }) => {
-    I.click('//button[@data-testid="searchButtonCta"]');
+Scenario('Empty search', ({ I, searchPage }) => {
+    searchPage.searchButton;
     I.see('Our top selection');
     I.see('Our current deals');
     I.see('Need some advice');
@@ -17,21 +17,31 @@ Scenario('Empty search', ({ I }) => {
     I.see('Our top categories');
 });
 
-Scenario('Non existing search', ({ I }) => {
+Scenario('Non existing search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'nonexisting')
-    I.click('//button[@data-testid="searchButtonCta"]');
+    searchPage.searchButton;
     I.waitForText('Nonexisting', 20);
     I.see('no products found');
 });
 
-Scenario('Brand search', ({ I }) => {
+Scenario('Brand search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'ford')
-    I.click('//button[@data-testid="searchButtonCta"]');
+    searchPage.searchButton;
+    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "ford")]');
     I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "ford")]', 60)
 });
 
-Scenario('Product search', ({ I }) => {
+Scenario('Product search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'fork')
-    I.click('//button[@data-testid="searchButtonCta"]');
+    searchPage.searchButton;
+    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "fork")]')
     I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "fork")]', 58)
+});
+
+Scenario('Product & Brand search', ({ I, searchPage }) => {
+    I.fillField('//input[@id="searchbar"]', 'trowel marshalltown')
+    searchPage.searchButton;
+    //At least one element has Product or Brand into description
+    I.seeElement('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "trowel") or contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "marshalltown")]')
+    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "trowel") or contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "marshalltown")]', 60)
 });

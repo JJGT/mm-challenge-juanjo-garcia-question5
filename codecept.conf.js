@@ -17,7 +17,8 @@ exports.config = {
     }
   },
   include: {
-    I: './steps_file.js'
+    I: './steps_file.js',
+    searchPagePage: './pages/searchPage.js'
   },
   bootstrap: null,
   mocha: {},
