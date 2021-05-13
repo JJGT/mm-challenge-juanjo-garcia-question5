@@ -27,11 +27,11 @@ Scenario('Non existing search', ({ I }) => {
 Scenario('Brand search', ({ I }) => {
     I.fillField('//input[@id="searchbar"]', 'ford')
     I.click('//button[@data-testid="searchButtonCta"]');
-    I.seeNumberOfElements('//a//div[translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')="ford"]', 60)
+    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "ford")]', 60)
 });
 
 Scenario('Product search', ({ I }) => {
     I.fillField('//input[@id="searchbar"]', 'fork')
     I.click('//button[@data-testid="searchButtonCta"]');
-    I.seeNumberOfElements('//a//div[contains(text(),"Fork") or contains(text(),"FORK")]', 60)
+    I.seeNumberOfElements('//a//div[contains(translate(text(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "fork")]', 58)
 });
