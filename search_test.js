@@ -35,5 +35,5 @@ Scenario('Product search', ({ I, searchPage }) => {
     I.fillField('//input[@id="searchbar"]', 'fork')
     searchPage.clickSearchButton;
     searchPage.lookFor('fork')
-    searchPage.howManyResults('ford', 58)
+    searchPage.howManyResults('fork', 58)
 });
